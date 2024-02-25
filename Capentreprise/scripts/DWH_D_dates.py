@@ -110,29 +110,21 @@
 #     print(f"IntegrityError: {e}")
 # else:
 #     print('Insertion des données de la table D_dates terminée avec succès.')
-from app_vaccins.models import ODS_Flux_total_dep, D_dates, Departement
+# from app_vaccins.models import ODS_Flux_total_dep, D_dates, Departement
+from app_vaccins.models import D_dates, ODS_Flux_total_dep
 from django.db import IntegrityError
 
 try:
     for ods_entry in ODS_Flux_total_dep.objects.all():
         print(f"Insertion des données pour {ods_entry.date_fin_semaine}")
 
-        for departement_instance in Departement.objects.filter(libelle_departement=ods_entry.libelle_departement):
-            # Vérifiez si la date existe déjà
-            existing_date = D_dates.objects.filter(code_date=f"{departement_instance.libelle_departement}-{ods_entry.date_fin_semaine}")
+        # Créez une instance de D_dates
+        d_dates_instance, created = D_dates.objects.get_or_create(
+            pk_date=ods_entry.date_fin_semaine
+        )
 
-            if existing_date.exists():
-                d_dates_instance = existing_date.first()
-            else:
-                # Créez une nouvelle instance de D_dates
-                d_dates_instance = D_dates(
-                    code_date=f"{departement_instance.libelle_departement}-{ods_entry.date_fin_semaine}",
-                    date_fin_semaine=ods_entry.date_fin_semaine,
-                    libelle_departement=departement_instance
-                )
-
-                # Enregistrez dans la base de données
-                d_dates_instance.save()
+        # Enregistrez dans la base de données
+        d_dates_instance.save()
 
     print('Fin d\'insertion des données de la table D_dates')
 
