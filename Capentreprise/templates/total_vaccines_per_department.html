@@ -1,0 +1,40 @@
+<!-- templates/app_vaccins/total_vaccines_per_department.html -->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Total Vaccines Per Department</title>
+</head>
+<body>
+
+<h1>Total Vaccines Per Department</h1>
+
+<table >
+    <thead>
+        <tr>
+            <th>Department</th>
+            <th>Total Vaccines</th>
+            <th>Doses</th>
+            <th>année</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for department, details in department_details.items %}
+        {% for dose in details.doses %}
+            <tr>
+                <td>{{ department.libelle_departement }}</td>
+                <td>{{ details.total_vaccines }}</td>
+                <td>
+                        {{ dose.nb_doses }} 
+                    </td>
+                    <td> {{ dose.pk_date }}</td>
+                </tr>
+        {% endfor %}
+        {% endfor %}
+    </tbody>
+</table>
+
+</body>
+</html>

@@ -1,4 +1,4 @@
-# from app_vaccins.models import Departement ,ODS_Flux_total_dep
+from app_vaccins.models import Departement ,ODS_Flux_total_dep
 # from django.db import IntegrityError
 
 # try:
@@ -27,27 +27,27 @@
 
 # # # Supprimer toutes les entrées de la table Departement
 # # Departement.objects.all().delete()
-from app_vaccins.models import Departement, ODS_Flux_total_dep
+# from app_vaccins.models import Departement, ODS_Flux_total_dep
 from django.db import IntegrityError
 
 try:
     for departement_entry in ODS_Flux_total_dep.objects.all():
-        print(f"Insertion des données pour {departement_entry.code_departement}-{departement_entry.code_region}")
+        print(f"Insertion des données pour {departement_entry.code_region}-{departement_entry.code_departement}")
 
-        # Vérifier si le département existe déjà
-        departement_instance, created = Departement.objects.get_or_create(
+        # Créer un département avec les données de ODS_Flux_total_dep
+        departement_instance = Departement(
             code_departement=departement_entry.code_departement,
             code_region=departement_entry.code_region,
             libelle_region=departement_entry.libelle_region,
             libelle_departement=departement_entry.libelle_departement
         )
 
-        if not created:
-            print(f"Le département {departement_instance.pk_departement} existe déjà.")
-        else:
-            print(f"Insertion des données pour {departement_instance.pk_departement}")
+        # Générer la clé primaire de manière unique
+        departement_instance.save()
+
+        print(f"Insertion des données pour {departement_instance.pk_departement}")
 
 except IntegrityError as e:
-    print(f"IntegrityError: {e}")
+    print(f"Erreur d'intégrité : {e}")
 else:
     print('Fin d\'insertion des données de la table Departement')

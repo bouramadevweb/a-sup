@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Doses par département</title>
+</head>
+<body>
+    <h1>Doses de vaccins par département</h1>
+    <ul>
+        {% for entry in doses_par_departement %}
+            <li>{{ entry.code_departement__libelle_departement }}: {{ entry.total_doses }}</li>
+        {% endfor %}
+    </ul>
+</body>
+</html>

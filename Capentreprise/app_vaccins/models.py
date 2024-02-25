@@ -22,14 +22,14 @@ class ODS_Flux_total_dep(models.Model):
         return self.code_region + self.libelle_region + self.code_departement + self.libelle_departement 
 class Departement(models.Model):
     pk_departement = models.CharField(primary_key=True, max_length=250, unique=True, default=None)
-    code_departement = models.CharField(max_length=250, default=None)
+    code_departement = models.CharField(max_length=250, blank=True, default=None)
     code_region = models.CharField(max_length=250, default=None)
-    libelle_region = models.CharField(max_length=250, default=None)
-    libelle_departement = models.CharField(max_length=250, default=None)
+    libelle_region = models.CharField(max_length=250, blank=True, default=None)
+    libelle_departement = models.CharField(max_length=250, blank=True, default=None)
 
     def save(self, *args, **kwargs):
         # Générer la clé primaire de manière unique
-        self.pk_departement = f'{self.code_departement}-{self.libelle_region}-{self.code_region}-{self.libelle_departement}'
+        self.pk_departement = f'{self.code_region}-{self.libelle_departement}'
         super().save(*args, **kwargs)
 
     def __str__(self):
@@ -61,8 +61,8 @@ class F_doses(models.Model):
         models (_type_): F_doses du vaccin
     """
     pk_F_doses = models.CharField(primary_key=True,max_length=250)
-    nb_ucd = models.IntegerField()
-    nb_doses = models.IntegerField()
+    nb_ucd = models.IntegerField(blank=True, default=None,null=True)
+    nb_doses = models.IntegerField(blank=True, default=None,null=True)
     code_departement = models.ForeignKey(Departement, on_delete=models.CASCADE)
     pk_type_vaccin = models.ForeignKey(D_type_vaccin, on_delete=models.CASCADE)
     pk_date = models.ForeignKey(D_dates,default='1900-01-01' ,on_delete=models.CASCADE)
@@ -74,3 +74,5 @@ class F_doses(models.Model):
         super().save(*args, **kwargs)
     def __str__(self):
         return f'{self.pk_F_doses},semaine {self.pk_date},doses {self.nb_doses},ucd {self.nb_ucd}'
+    class Meta:
+        ordering = ['code_departement', 'pk_date']

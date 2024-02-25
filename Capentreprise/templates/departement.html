@@ -1,0 +1,18 @@
+<table border="1">
+        <tr>
+            <th>PK Departement</th>
+            <th>Code Departement</th>
+            <th>Code Region</th>
+            <th>Libelle Region</th>
+            <th>Libelle Departement</th>
+        </tr>
+        {% for row in departements %}
+            <tr>
+                <td>{{ row.pk_departement }}</td>
+                <td>{{ row.code_departement }}</td>
+                <td>{{ row.code_region }}</td>
+                <td>{{ row.libelle_region }}</td>
+                <td>{{ row.libelle_departement }}</td>
+            </tr>
+        {% endfor %}
+    </table>

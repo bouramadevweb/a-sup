@@ -16,7 +16,11 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
+from app_vaccins.views import display_ods,total_vaccines_per_department
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path('display_ods/', display_ods, name='display_ods'),
+    path('total_vaccines_per_department/', total_vaccines_per_department, name='total_vaccines_per_department'),
+
 ]

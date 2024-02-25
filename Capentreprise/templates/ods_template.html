@@ -1,0 +1,43 @@
+<!-- templates/app_vaccins/ods_template.html -->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ODS Flux Total Dep</title>
+</head>
+<body>
+    <h1>ODS Flux Total Dep</h1>
+    <table>
+        <thead>
+            <tr>
+                <th>Code Region</th>
+                <th> Region</th>
+                <th>Code Departement</th>
+                <th>Departement</th>
+                <th>date fin semaine</th>
+                <th>vaccins</th>
+                <th>nb_ucd</th>
+                <th>nb_doses</th>
+                <!-- Ajoutez d'autres colonnes selon vos champs ODS_Flux_total_dep -->
+            </tr>
+        </thead>
+        <tbody>
+            {% for item in ods_flux_total_dep %}
+                <tr>
+                    <td>{{ item.code_region }}</td>
+                    <td>{{ item.libelle_region }}</td>
+                    <td>{{ item.code_departement }}</td>
+                    <td>{{ item.libelle_departement }}</td>
+                    <td>{{ item.date_fin_semaine }}</td>
+                    <td>{{ item.type_de_vaccin }}</td>
+                    <td>{{ item.nb_ucd }}</td>
+                    <td>{{ item.nb_doses }}</td>
+                    <!-- Ajoutez d'autres colonnes selon vos champs ODS_Flux_total_dep -->
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</body>
+</html>
