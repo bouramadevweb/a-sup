@@ -22,14 +22,14 @@ class ODS_Flux_total_dep(models.Model):
         return self.code_region + self.libelle_region + self.code_departement + self.libelle_departement 
 class Departement(models.Model):
     pk_departement = models.CharField(primary_key=True, max_length=250, unique=True, default=None)
-    code_departement = models.CharField(max_length=250, blank=True, default=None)
-    code_region = models.CharField(max_length=250, default=None)
+    code_departement = models.CharField(max_length=3, blank=True, default=None)
+    code_region = models.IntegerField(max_length=250, default=None)
     libelle_region = models.CharField(max_length=250, blank=True, default=None)
     libelle_departement = models.CharField(max_length=250, blank=True, default=None)
 
     def save(self, *args, **kwargs):
         # Générer la clé primaire de manière unique
-        self.pk_departement = f'{self.code_region}-{self.libelle_departement}'
+        self.pk_departement = f'{self.code_region}-{self.code_departement}'
         super().save(*args, **kwargs)
 
     def __str__(self):

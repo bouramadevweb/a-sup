@@ -42,7 +42,8 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'django_extensions',
     'app_vaccins',
-    'rest_framework'
+    'rest_framework',
+    'Api_web'
 ]
 
 MIDDLEWARE = [
